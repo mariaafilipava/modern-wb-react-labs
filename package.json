@@ -1,8 +1,10 @@
 {
-  "name": "vite-original",
+  "name": "modern-wb-react-labs",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "author": "Maryia Filipava",
+  "description": "Homework project for Web Development Course",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
