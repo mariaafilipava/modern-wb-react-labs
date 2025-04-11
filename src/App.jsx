@@ -1,15 +1,8 @@
-import Header from './components/Header';
-import MainBanner from './components/MainBanner';
-import Footer from './components/Footer';
+import MenuPage from './components/MenuPage';
 
 function App() {
-  return (
-    <>
-      <Header />
-      <MainBanner />
-      <Footer />
-    </>
-  );
+  return <MenuPage />;
 }
 
 export default App;
+

@@ -1,18 +1,27 @@
+import { FiShoppingCart } from "react-icons/fi";
+import logo from "../assets/Logo.png";
+import "./Header.css";
+
 function Header() {
   return (
-    <header>
+    <header className="header">
       <div className="logo">
-        <img src="/logo-placeholder.svg" alt="Logo" />
+        <img src={logo} alt="Logo" />
       </div>
-      <nav>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Menu</a></li>
-          <li><a href="#">Company</a></li>
-          <li><a href="#">Login</a></li>
-          <li><a href="#">Cart</a></li>
-        </ul>
-      </nav>
+
+      <div className="nav-and-cart">
+        <nav className="nav">
+          <a href="#">Home</a>
+          <a href="#" className="active">Menu</a>
+          <a href="#">Company</a>
+          <a href="#">Login</a>
+        </nav>
+
+        <div className="cart">
+          <FiShoppingCart />
+          <span className="cart-badge">0</span>
+        </div>
+      </div>
     </header>
   );
 }

@@ -1,50 +1,60 @@
+import logo from "../assets/Logo.png";
+import instIcon from "../assets/inst.png";
+import twIcon from "../assets/tw.png";
+import ytIcon from "../assets/YT.png";
+import '../index.css';
+import "./Footer.css";
+
 function Footer() {
   return (
-    <footer>
-      <div className="footer-container">
-        {/* Левая часть: логотип и описание */}
-        <div className="footer-logo">
-          <p>[ Logo ]</p>
-          <p>
+    <footer className="footer">
+      <div className="footer-top">
+        <div className="footer-left">
+          <img src={logo} alt="Logo" className="footer-logo" />
+          <p className="footer-description">
             Takeaway & Delivery template <br />
             for small - medium businesses.
           </p>
         </div>
 
-        {/* Центральные ссылки */}
-        <div className="footer-links">
-          <div className="column">
+        <div className="footer-columns">
+          <div className="footer-column">
             <h4>Company</h4>
             <ul>
-              <li>Home</li>
-              <li>Order</li>
-              <li>FAQ</li>
-              <li>Contact</li>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Order</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Contact</a></li>
             </ul>
           </div>
-
-          <div className="column">
+          <div className="footer-column">
             <h4>Template</h4>
             <ul>
-              <li>Style Guide</li>
-              <li>Changelog</li>
-              <li>Licence</li>
-              <li>Webflow University</li>
+              <li><a href="#">Style Guide</a></li>
+              <li><a href="#">Changelog</a></li>
+              <li><a href="#">Licence</a></li>
+              <li><a href="#">Webflow University</a></li>
             </ul>
           </div>
-
-          <div className="column">
+          <div className="footer-column">
             <h4>Flowbase</h4>
             <ul>
-              <li>More Cloneables</li>
+              <li><a href="#">More Cloneables</a></li>
             </ul>
           </div>
         </div>
+      </div>
 
-        {/* Нижняя часть футера */}
-        <div className="footer-bottom">
-          <p>Built by Flowbase · Powered by Webflow</p>
-          <p>[ Social Icons ]</p>
+      <hr className="footer-separator" />
+
+      <div className="footer-bottom">
+        <p className="footer-built">
+          Built by <a href="#">Flowbase</a> · Powered by <a href="#">Webflow</a>
+        </p>
+        <div className="footer-social-icons">
+          <div className="icon-circle"><img src={instIcon} alt="Instagram" /></div>
+          <div className="icon-circle"><img src={twIcon} alt="Twitter" /></div>
+          <div className="icon-circle"><img src={ytIcon} alt="YouTube" /></div>
         </div>
       </div>
     </footer>
