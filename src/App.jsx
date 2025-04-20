@@ -1,4 +1,4 @@
-import MenuPage from './components/MenuPage';
+import MenuPage from './components/MenuPage/MenuPage';
 
 function App() {
   return <MenuPage />;
