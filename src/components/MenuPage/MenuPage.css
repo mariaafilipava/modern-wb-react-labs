@@ -53,6 +53,7 @@
   gap: 16px;
   margin-top: 50px;
   margin-bottom: 60px;
+  flex-wrap: wrap;
 }
 
 .filter-buttons button {

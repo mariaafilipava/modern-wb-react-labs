@@ -1,99 +1,116 @@
-import React, { Component } from "react";
+import { useState, useEffect } from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import MenuItem from "../MenuItem/MenuItem";
+import meals from "../../meals"; 
 import "../../index.css";
 import "./MenuPage.css";
 
-class MenuPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      visibleCount: 6,
-      cartCount: 0,
-    };
-  }
+function MenuPage() {
+  const [items, setItems] = useState([]);
+  const [orders, setOrders] = useState([]); 
+  const [visibleCount, setVisibleCount] = useState(6);
+  const [cartCount, setCartCount] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  componentDidMount() {
-    fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=")
+  useEffect(() => {
+    setItems(meals);
+
+    fetch("https://api.jsonbin.io/v3/b/662f7b6facd3cb34a839a5cb")
       .then((res) => res.json())
       .then((data) => {
-        const meals = data.meals.map((meal) => ({
-          id: meal.idMeal,
-          name: meal.strMeal,
-          price: `$${(Math.random() * 10 + 5).toFixed(2)} USD`,
-          description: meal.strInstructions
-            ? meal.strInstructions.slice(0, 100) + "..."
-            : "No description available.",
-          image: meal.strMealThumb,
-        }));
-        this.setState({ items: meals });
+        if (data.record) {
+          setOrders(data.record);
+        } else {
+          console.error("Orders not found in API response.");
+        }
       })
-      .catch((err) => console.error("Failed to fetch meals:", err));
-  }
+      .catch((err) => console.error("Failed to fetch orders:", err));
+  }, []);
 
-  handleSeeMore = () => {
-    this.setState((prevState) => ({
-      visibleCount: prevState.visibleCount + 6,
-    }));
+  const handleSeeMore = () => {
+    setVisibleCount((prev) => prev + 6);
   };
 
-  handleAddToCart = (amount = 1) => {
-    this.setState((prevState) => ({
-      cartCount: prevState.cartCount + amount,
-    }));
+  const handleAddToCart = (amount = 1) => {
+    setCartCount((prev) => prev + amount);
   };
 
-  render() {
-    const { items, visibleCount, cartCount } = this.state;
+  const handleFilter = (category) => {
+    setSelectedCategory(category);
+    setVisibleCount(6);
+  };
 
-    return (
-      <>
-        <Header cartCount={cartCount} />
-        <main className="menu-page">
-          <div className="menu-header">
-            <div className="menu-header-inner">
-              <h1>Browse our menu</h1>
-              <p>
-                Use our menu to place an order online, or{" "}
-                <span className="tooltip-trigger">
-                  phone
-                  <span className="tooltip">+1 (234) 567-890</span>
-                </span>{" "}
-                our store to place a pickup order. Fast and fresh food.
-              </p>
-            </div>
+  const filteredItems = selectedCategory === "All"
+    ? items
+    : items.filter((item) => item.category === selectedCategory);
+
+  return (
+    <>
+      <Header cartCount={cartCount} />
+      <main className="menu-page">
+        <div className="menu-header">
+          <div className="menu-header-inner">
+            <h1>Browse our menu</h1>
+            <p>
+              Use our menu to place an order online, or{" "}
+              <span className="tooltip-trigger">
+                phone
+                <span className="tooltip">+1 (234) 567-890</span>
+              </span>{" "}
+              our store to place a pickup order. Fast and fresh food.
+            </p>
           </div>
+        </div>
 
-          <div className="filter-buttons">
-            <button className="active">Dessert</button>
-            <button>Dinner</button>
-            <button>Breakfast</button>
+        <div className="filter-buttons">
+          <button
+            className={selectedCategory === "All" ? "active" : ""}
+            onClick={() => handleFilter("All")}
+          >
+            All
+          </button>
+          <button
+            className={selectedCategory === "Dessert" ? "active" : ""}
+            onClick={() => handleFilter("Dessert")}
+          >
+            Dessert
+          </button>
+          <button
+            className={selectedCategory === "Dinner" ? "active" : ""}
+            onClick={() => handleFilter("Dinner")}
+          >
+            Dinner
+          </button>
+          <button
+            className={selectedCategory === "Breakfast" ? "active" : ""}
+            onClick={() => handleFilter("Breakfast")}
+          >
+            Breakfast
+          </button>
+        </div>
+
+        <div className="menu-grid">
+          {filteredItems.slice(0, visibleCount).map((item) => (
+            <MenuItem
+              key={item.id}
+              item={item}
+              onAddToCart={handleAddToCart}
+            />
+          ))}
+        </div>
+
+        {visibleCount < filteredItems.length && (
+          <div className="see-more-container">
+            <button className="see-more" onClick={handleSeeMore}>
+              See more
+            </button>
           </div>
-
-          <div className="menu-grid">
-            {items.slice(0, visibleCount).map((item) => (
-              <MenuItem
-                key={item.id}
-                item={item}
-                onAddToCart={this.handleAddToCart}
-              />
-            ))}
-          </div>
-
-          {visibleCount < items.length && (
-            <div className="see-more-container">
-              <button className="see-more" onClick={this.handleSeeMore}>
-                See more
-              </button>
-            </div>
-          )}
-        </main>
-        <Footer />
-      </>
-    );
-  }
+        )}
+      </main>
+      <Footer />
+    </>
+  );
 }
 
 export default MenuPage;
