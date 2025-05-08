@@ -2,29 +2,35 @@ import { useState, useEffect } from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import MenuItem from "../MenuItem/MenuItem";
-import meals from "../../meals"; 
 import "../../index.css";
 import "./MenuPage.css";
 
 function MenuPage() {
   const [items, setItems] = useState([]);
-  const [orders, setOrders] = useState([]); 
+  const [orders, setOrders] = useState([]);
   const [visibleCount, setVisibleCount] = useState(6);
   const [cartCount, setCartCount] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
-    setItems(meals);
-
-    fetch("https://api.jsonbin.io/v3/b/662f7b6facd3cb34a839a5cb")
+    fetch("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals")
       .then((res) => res.json())
       .then((data) => {
-        if (data.record) {
-          setOrders(data.record);
-        } else {
-          console.error("Orders not found in API response.");
-        }
+        const formattedMeals = data.map((meal) => ({
+          id: meal.id,
+          name: meal.meal,
+          image: meal.img,
+          description: meal.instructions,
+          category: meal.category,
+          price: meal.price,
+        }));
+        setItems(formattedMeals);
       })
+      .catch((err) => console.error("Failed to fetch meals:", err));
+
+    fetch("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/orders")
+      .then((res) => res.json())
+      .then((data) => setOrders(data))
       .catch((err) => console.error("Failed to fetch orders:", err));
   }, []);
 
@@ -41,9 +47,10 @@ function MenuPage() {
     setVisibleCount(6);
   };
 
-  const filteredItems = selectedCategory === "All"
-    ? items
-    : items.filter((item) => item.category === selectedCategory);
+  const filteredItems =
+    selectedCategory === "All"
+      ? items
+      : items.filter((item) => item.category === selectedCategory);
 
   return (
     <>
@@ -114,3 +121,6 @@ function MenuPage() {
 }
 
 export default MenuPage;
+
+
+

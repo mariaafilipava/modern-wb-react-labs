@@ -17,16 +17,22 @@ function MenuItem({ item, onAddToCart }) {
 
   return (
     <div className="menu-card">
-      <img src={item.image} alt={item.name} className="menu-image" />
+      <img
+        src={item.image || "https://via.placeholder.com/120"} 
+        alt={item.name || "Meal image"}
+        className="menu-image"
+      />
       <div className="menu-content">
         <div className="menu-header">
-          <h3 className="menu-title">{item.name}</h3>
-          <span className="menu-price">${item.price.toFixed(2)}</span>
+          <h3 className="menu-title">{item.name || "No name"}</h3>
+          <span className="menu-price">
+            ${item.price ? item.price.toFixed(2) : "N/A"} 
+          </span>
         </div>
         <p className="menu-description">
-          {item.description.length > 90
+          {item.description && item.description.length > 90
             ? item.description.slice(0, 90) + "..."
-            : item.description}
+            : item.description || "No description available."}
         </p>
         <div className="menu-actions">
           <input
