@@ -1,8 +1,7 @@
-import logo from "../assets/Logo.png";
-import instIcon from "../assets/inst.png";
-import twIcon from "../assets/tw.png";
-import ytIcon from "../assets/YT.png";
-import '../index.css';
+import logo from "../../assets/Logo.png";
+import instIcon from "../../assets/inst.png";
+import twIcon from "../../assets/tw.png";
+import ytIcon from "../../assets/YT.png";
 import "./Footer.css";
 
 function Footer() {
@@ -30,10 +29,10 @@ function Footer() {
           <div className="footer-column">
             <h4>Template</h4>
             <ul>
-              <li><a href="#">Style Guide</a></li>
-              <li><a href="#">Changelog</a></li>
-              <li><a href="#">Licence</a></li>
-              <li><a href="#">Webflow University</a></li>
+              <li><a href="https://www.google.com/">Style Guide</a></li>
+              <li><a href="https://www.google.com/">Changelog</a></li>
+              <li><a href="https://www.google.com/">Licence</a></li>
+              <li><a href="https://www.google.com/">Webflow University</a></li>
             </ul>
           </div>
           <div className="footer-column">

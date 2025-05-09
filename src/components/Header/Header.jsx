@@ -1,8 +1,8 @@
 import { FiShoppingCart } from "react-icons/fi";
-import logo from "../assets/Logo.png";
+import logo from "../../assets/Logo.png";
 import "./Header.css";
 
-function Header() {
+function Header({ cartCount }) {
   return (
     <header className="header">
       <div className="logo">
@@ -19,7 +19,7 @@ function Header() {
 
         <div className="cart">
           <FiShoppingCart />
-          <span className="cart-badge">0</span>
+          <span className="cart-badge">{cartCount}</span>
         </div>
       </div>
     </header>
