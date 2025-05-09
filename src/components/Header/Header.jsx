@@ -1,8 +1,11 @@
 import { FiShoppingCart } from "react-icons/fi";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/Logo.png";
 import "./Header.css";
 
 function Header({ cartCount }) {
+  const location = useLocation();
+
   return (
     <header className="header">
       <div className="logo">
@@ -11,8 +14,18 @@ function Header({ cartCount }) {
 
       <div className="nav-and-cart">
         <nav className="nav">
-          <a href="#">Home</a>
-          <a href="#" className="active">Menu</a>
+          <Link
+            to="/"
+            className={location.pathname === "/" ? "active" : ""}
+          >
+            Home
+          </Link>
+          <Link
+            to="/menu"
+            className={location.pathname === "/menu" ? "active" : ""}
+          >
+            Menu
+          </Link>
           <a href="#">Company</a>
           <a href="#">Login</a>
         </nav>
