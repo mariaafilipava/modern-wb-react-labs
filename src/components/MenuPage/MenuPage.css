@@ -1,0 +1,261 @@
+/* layout wrapper for the menu page */
+
+.menu-page {
+  padding: 60px 40px;
+  background-color: #f4fefe;
+}
+
+/* top section: title + description */
+
+.menu-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 32px;
+  padding-bottom: 40px;
+}
+
+.menu-header-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.menu-header-inner h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 50px;
+  font-weight: 400;
+  color: #35B8BE;
+  letter-spacing: 1.65px;
+  line-height: 55px;
+  margin-bottom: 26px;
+}
+
+.menu-header-inner p {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #3F3D56;
+  line-height: 27px;
+  letter-spacing: 0.36px;
+  width: 466px;
+  margin: 0 auto;
+}
+
+/* filter buttons section */
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 50px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.filter-buttons button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  width: 147px;
+  height: 52px;
+  border-radius: 6px;
+  border: 1px solid rgba(53, 184, 190, 0.6);
+  background-color: transparent;
+  color: #222222;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.filter-buttons button.active {
+  background-color: #35B8BE;
+  color: #ffffff;
+  border: none;
+}
+
+.filter-buttons button:hover:not(.active) {
+  border-color: #35B8BE;
+}
+
+/* phone tooltip styles */
+
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-trigger {
+  color: #35b8be;
+  cursor: pointer;
+  position: relative;
+}
+
+.tooltip {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+  font-size: 14px;
+}
+
+.tooltip-trigger:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* grid of all menu items */
+
+.menu-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 40px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+/* individual card with image + content */
+
+.menu-card {
+  display: flex;
+  width: 580px;
+  height: 200px;
+  padding: 20px;
+  gap: 30px;
+  background-color: white;
+  border: 1px solid rgba(53, 184, 190, 0.2);
+  border-radius: 5px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.menu-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  height: 100%;
+  padding: 2px 0;
+}
+
+/* title and price row */
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+
+.menu-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1d1b45;
+  margin: 0;
+  max-width: 65%;
+}
+
+.menu-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #35b8be;
+  white-space: nowrap;
+  margin-top: 3px;
+}
+
+/* product description */
+
+.menu-description {
+  font-size: 15px;
+  color: #5c6481;
+  line-height: 1.4;
+  margin: 0 0 10px;
+  max-width: 400px;
+  flex-shrink: 1;
+  text-align: left;
+}
+
+/* bottom row with quantity input and button */
+
+.menu-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.quantity-input {
+  width: 50px;
+  height: 45px;
+  padding: 4px 8px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid #d1d1d1;
+  border-radius: 6px;
+  background: #fafafa;
+  text-align: center;
+}
+
+.add-to-cart {
+  background-color: #35b8be;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  height: 45px;
+  width: 147px;
+}
+
+.add-to-cart:hover {
+  background-color: #2ca5aa;
+}
+
+/* see more button below the grid */
+
+.see-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 65px;
+}
+
+.see-more {
+  background-color: #35b8be;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  width: 147px;
+  height: 52px;
+}
+
+.see-more:hover {
+  background-color: #2ca5aa;
+}
+
