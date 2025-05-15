@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-import MenuItem from "../MenuItem/MenuItem";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import MenuItem from "../../components/MenuItem/MenuItem";
 import "../../index.css";
 import "./MenuPage.css";
 

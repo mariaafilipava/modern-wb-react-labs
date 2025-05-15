@@ -1,5 +1,6 @@
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import useFetchLogger from "../../hooks/useFetch";
 import {
   Wrapper,
   Container,
@@ -14,6 +15,8 @@ import homepageBanner from "../../assets/homepage-banner.png";
 import trustpilotLogo from "../../assets/trustpilot-star.png";
 
 function HomePage({ onNavigate }) {
+  useFetchLogger("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals");
+
   return (
     <Wrapper>
       <Header cartCount={0} />
@@ -59,6 +62,7 @@ function HomePage({ onNavigate }) {
 }
 
 export default HomePage;
+
 
 
 
