@@ -18,10 +18,14 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const user = { username, password };
-    localStorage.setItem("user", JSON.stringify(user));
+    const newUser = { username, password };
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+    existingUsers.push(newUser);
+    localStorage.setItem("users", JSON.stringify(existingUsers));
 
-    console.log("Logged in:", user);
+    console.log("Logged in:", newUser);
+    setUsername("");
+    setPassword("");
   };
 
   const handleCancel = () => {
@@ -65,11 +69,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-
-
-
-
-
-
-

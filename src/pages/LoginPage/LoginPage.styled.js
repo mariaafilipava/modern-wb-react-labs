@@ -93,13 +93,3 @@ export const CancelButton = styled(Button)`
   color: #222222;
   border: 1px solid #dddddd;
 `;
-
-
-
-
-
-
-
-
-
-
