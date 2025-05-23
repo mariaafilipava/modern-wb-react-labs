@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import useFetchLogger from "../../hooks/useFetch";
@@ -14,7 +15,11 @@ import {
 import homepageBanner from "../../assets/homepage-banner.png";
 import trustpilotLogo from "../../assets/trustpilot-star.png";
 
-function HomePage({ onNavigate }) {
+type Props = {
+  onNavigate: () => void;
+};
+
+const HomePage: React.FC<Props> = ({ onNavigate }) => {
   useFetchLogger("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals");
 
   return (
@@ -59,16 +64,6 @@ function HomePage({ onNavigate }) {
       <Footer />
     </Wrapper>
   );
-}
+};
 
 export default HomePage;
-
-
-
-
-
-
-
-
-
-

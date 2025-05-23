@@ -1,16 +1,30 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import "./MenuItem.css";
 
-function MenuItem({ item, onAddToCart }) {
-  const [quantity, setQuantity] = useState(1);
+type Meal = {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+  category: string;
+  price: number;
+};
 
-  const handleQuantityChange = (e) => {
+type MenuItemProps = {
+  item: Meal;
+  onAddToCart: (amount: number) => void;
+};
+
+const MenuItem: React.FC<MenuItemProps> = ({ item, onAddToCart }) => {
+  const [quantity, setQuantity] = useState<number>(1);
+
+  const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10);
     setQuantity(isNaN(value) || value < 1 ? 1 : value);
   };
 
   const handleAddToCart = () => {
-    if (onAddToCart && quantity > 0) {
+    if (quantity > 0) {
       onAddToCart(quantity);
     }
   };
@@ -49,6 +63,7 @@ function MenuItem({ item, onAddToCart }) {
       </div>
     </div>
   );
-}
+};
 
 export default MenuItem;
+

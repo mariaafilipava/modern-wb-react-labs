@@ -3,7 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/Logo.png";
 import "./Header.css";
 
-function Header({ cartCount }) {
+type HeaderProps = {
+  cartCount: number;
+};
+
+const Header: React.FC<HeaderProps> = ({ cartCount }) => {
   const location = useLocation();
 
   return (
@@ -37,6 +41,6 @@ function Header({ cartCount }) {
       </div>
     </header>
   );
-}
+};
 
 export default Header;

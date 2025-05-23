@@ -11,19 +11,26 @@ import {
   CancelButton
 } from "./LoginPage.styled";
 
-const LoginPage = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+type User = {
+  username: string;
+  password: string;
+};
 
-  const handleSubmit = (e) => {
+const LoginPage: React.FC = () => {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newUser = { username, password };
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const newUser: User = { username, password };
+    const existingUsers: User[] = JSON.parse(localStorage.getItem("users") || "[]");
+
     existingUsers.push(newUser);
     localStorage.setItem("users", JSON.stringify(existingUsers));
 
     console.log("Logged in:", newUser);
+
     setUsername("");
     setPassword("");
   };
@@ -42,7 +49,9 @@ const LoginPage = () => {
           <Input
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setUsername(e.target.value)
+            }
             placeholder="UserName"
           />
         </LabelRow>
@@ -52,7 +61,9 @@ const LoginPage = () => {
           <Input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
             placeholder="********"
           />
         </LabelRow>
@@ -69,3 +80,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
