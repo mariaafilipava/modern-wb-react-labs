@@ -5,12 +5,12 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
-function App() {
-  const [activePage, setActivePage] = useState("login");
+function App(): React.ReactElement {
+  const [activePage, setActivePage] = useState<"login" | "home" | "menu">("login");
 
   return (
     <>
-      <Header />
+      <Header cartCount={0} />
       {activePage === "home" && (
         <HomePage onNavigate={() => setActivePage("menu")} />
       )}
@@ -22,5 +22,8 @@ function App() {
 }
 
 export default App;
+
+
+
 
 
