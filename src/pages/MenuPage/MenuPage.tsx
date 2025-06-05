@@ -5,18 +5,36 @@ import MenuItem from "../../components/MenuItem/MenuItem";
 import "../../index.css";
 import "./MenuPage.css";
 
-function MenuPage() {
-  const [items, setItems] = useState([]);
-  const [orders, setOrders] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(6);
-  const [cartCount, setCartCount] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+type Meal = {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+  category: string;
+  price: number;
+};
+
+type ApiMeal = {
+  id: string;
+  meal: string;
+  img: string;
+  instructions: string;
+  category: string;
+  price: number;
+};
+
+function MenuPage(): React.ReactElement {
+  const [items, setItems] = useState<Meal[]>([]);
+  const [orders, setOrders] = useState<any[]>([]);
+  const [visibleCount, setVisibleCount] = useState<number>(6);
+  const [cartCount, setCartCount] = useState<number>(0);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
   useEffect(() => {
     fetch("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals")
       .then((res) => res.json())
-      .then((data) => {
-        const formattedMeals = data.map((meal) => ({
+      .then((data: ApiMeal[]) => {
+        const formattedMeals: Meal[] = data.map((meal) => ({
           id: meal.id,
           name: meal.meal,
           image: meal.img,
@@ -38,19 +56,18 @@ function MenuPage() {
     setVisibleCount((prev) => prev + 6);
   };
 
-  const handleAddToCart = (amount = 1) => {
+  const handleAddToCart = (amount: number = 1) => {
     setCartCount((prev) => prev + amount);
   };
 
-  const handleFilter = (category) => {
+  const handleFilter = (category: string) => {
     setSelectedCategory(category);
     setVisibleCount(6);
   };
 
-  const filteredItems =
-    selectedCategory === "All"
-      ? items
-      : items.filter((item) => item.category === selectedCategory);
+  const filteredItems = selectedCategory === "All"
+    ? items
+    : items.filter((item) => item.category === selectedCategory);
 
   return (
     <>
@@ -71,30 +88,15 @@ function MenuPage() {
         </div>
 
         <div className="filter-buttons">
-          <button
-            className={selectedCategory === "All" ? "active" : ""}
-            onClick={() => handleFilter("All")}
-          >
-            All
-          </button>
-          <button
-            className={selectedCategory === "Dessert" ? "active" : ""}
-            onClick={() => handleFilter("Dessert")}
-          >
-            Dessert
-          </button>
-          <button
-            className={selectedCategory === "Dinner" ? "active" : ""}
-            onClick={() => handleFilter("Dinner")}
-          >
-            Dinner
-          </button>
-          <button
-            className={selectedCategory === "Breakfast" ? "active" : ""}
-            onClick={() => handleFilter("Breakfast")}
-          >
-            Breakfast
-          </button>
+          {["All", "Dessert", "Dinner", "Breakfast"].map((category) => (
+            <button
+              key={category}
+              className={selectedCategory === category ? "active" : ""}
+              onClick={() => handleFilter(category)}
+            >
+              {category}
+            </button>
+          ))}
         </div>
 
         <div className="menu-grid">
@@ -121,6 +123,3 @@ function MenuPage() {
 }
 
 export default MenuPage;
-
-
-

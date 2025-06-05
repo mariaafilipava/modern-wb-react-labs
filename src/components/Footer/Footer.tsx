@@ -1,10 +1,11 @@
+import React from "react";
 import logo from "../../assets/Logo.png";
 import instIcon from "../../assets/inst.png";
 import twIcon from "../../assets/tw.png";
 import ytIcon from "../../assets/YT.png";
 import "./Footer.css";
 
-function Footer() {
+const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <div className="footer-top">
@@ -58,7 +59,8 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
+
 
