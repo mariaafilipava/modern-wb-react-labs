@@ -5,8 +5,11 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
+// ✅ Тип вынесен отдельно
+type Page = "login" | "home" | "menu";
+
 function App(): React.ReactElement {
-  const [activePage, setActivePage] = useState<"login" | "home" | "menu">("login");
+  const [activePage, setActivePage] = useState<Page>("login");
 
   return (
     <>
@@ -22,8 +25,3 @@ function App(): React.ReactElement {
 }
 
 export default App;
-
-
-
-
-

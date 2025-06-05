@@ -14,6 +14,15 @@ type Meal = {
   price: number;
 };
 
+type ApiMeal = {
+  id: string;
+  meal: string;
+  img: string;
+  instructions: string;
+  category: string;
+  price: number;
+};
+
 function MenuPage(): React.ReactElement {
   const [items, setItems] = useState<Meal[]>([]);
   const [orders, setOrders] = useState<any[]>([]);
@@ -24,8 +33,8 @@ function MenuPage(): React.ReactElement {
   useEffect(() => {
     fetch("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals")
       .then((res) => res.json())
-      .then((data) => {
-        const formattedMeals: Meal[] = data.map((meal: any) => ({
+      .then((data: ApiMeal[]) => {
+        const formattedMeals: Meal[] = data.map((meal) => ({
           id: meal.id,
           name: meal.meal,
           image: meal.img,
