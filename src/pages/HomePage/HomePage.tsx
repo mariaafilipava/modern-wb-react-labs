@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import { useDispatch } from "react-redux";
+import { setActivePage } from "../../store/pageSlice";
 import useFetchLogger from "../../hooks/useFetch";
 import {
   Wrapper,
@@ -12,19 +12,20 @@ import {
   Rating,
   ImageSection,
 } from "./HomePage.styled";
+
 import homepageBanner from "../../assets/homepage-banner.png";
 import trustpilotLogo from "../../assets/trustpilot-star.png";
 
-type Props = {
-  onNavigate: () => void;
-};
-
-const HomePage: React.FC<Props> = ({ onNavigate }) => {
+const HomePage: React.FC = () => {
+  const dispatch = useDispatch();
   useFetchLogger("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals");
+
+  const handleOrderClick = () => {
+    dispatch(setActivePage("menu"));
+  };
 
   return (
     <Wrapper>
-      <Header cartCount={0} />
       <Container>
         <Content>
           <Title>
@@ -35,7 +36,7 @@ const HomePage: React.FC<Props> = ({ onNavigate }) => {
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500.
           </Subtitle>
-          <OrderButton disabled onClick={onNavigate}>
+          <OrderButton onClick={handleOrderClick}>
             Place an Order
           </OrderButton>
 
@@ -61,7 +62,6 @@ const HomePage: React.FC<Props> = ({ onNavigate }) => {
           <img src={homepageBanner} alt="Burger with fries and app icons" />
         </ImageSection>
       </Container>
-      <Footer />
     </Wrapper>
   );
 };

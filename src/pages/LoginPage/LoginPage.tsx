@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setActivePage } from "../../store/pageSlice";
+
 import {
   Wrapper,
   Title,
@@ -8,7 +11,7 @@ import {
   Input,
   ButtonGroup,
   Button,
-  CancelButton
+  CancelButton,
 } from "./LoginPage.styled";
 
 type User = {
@@ -17,6 +20,7 @@ type User = {
 };
 
 const LoginPage: React.FC = () => {
+  const dispatch = useDispatch();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -33,6 +37,8 @@ const LoginPage: React.FC = () => {
 
     setUsername("");
     setPassword("");
+
+    dispatch(setActivePage("home"));
   };
 
   const handleCancel = () => {
@@ -49,9 +55,7 @@ const LoginPage: React.FC = () => {
           <Input
             type="text"
             value={username}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setUsername(e.target.value)
-            }
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="UserName"
           />
         </LabelRow>
@@ -61,9 +65,7 @@ const LoginPage: React.FC = () => {
           <Input
             type="password"
             value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.target.value)
-            }
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="********"
           />
         </LabelRow>
@@ -80,4 +82,3 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
-
