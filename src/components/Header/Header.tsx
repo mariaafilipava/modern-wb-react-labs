@@ -1,5 +1,7 @@
 import { FiShoppingCart } from "react-icons/fi";
-import { Link, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store/store";
+import { setActivePage } from "../../store/pageSlice";
 import logo from "../../assets/Logo.png";
 import "./Header.css";
 
@@ -8,7 +10,12 @@ type HeaderProps = {
 };
 
 const Header: React.FC<HeaderProps> = ({ cartCount }) => {
-  const location = useLocation();
+  const dispatch = useDispatch();
+  const activePage = useSelector((state: RootState) => state.page.activePage);
+
+  const handleClick = (page: "home" | "menu" | "login") => {
+    dispatch(setActivePage(page));
+  };
 
   return (
     <header className="header">
@@ -18,20 +25,37 @@ const Header: React.FC<HeaderProps> = ({ cartCount }) => {
 
       <div className="nav-and-cart">
         <nav className="nav">
-          <Link
-            to="/"
-            className={location.pathname === "/" ? "active" : ""}
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handleClick("home");
+            }}
+            className={activePage === "home" ? "active" : ""}
           >
             Home
-          </Link>
-          <Link
-            to="/menu"
-            className={location.pathname === "/menu" ? "active" : ""}
+          </a>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handleClick("menu");
+            }}
+            className={activePage === "menu" ? "active" : ""}
           >
             Menu
-          </Link>
+          </a>
           <a href="#">Company</a>
-          <a href="#">Login</a>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handleClick("login");
+            }}
+            className={activePage === "login" ? "active" : ""}
+          >
+            Login
+          </a>
         </nav>
 
         <div className="cart">
