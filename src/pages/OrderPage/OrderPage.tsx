@@ -19,7 +19,7 @@ import {
   OrderButton,
 } from "./OrderPage.styled";
 import burgerImage from "../../assets/order_photo.png";
-import { updateQuantity } from "../../store/menuSlice";
+import { updateQuantity, removeFromCart } from "../../store/menuSlice";
 
 const OrderPage: React.FC = () => {
   const cartItems = useSelector((state: RootState) => state.menu.cart);
@@ -45,7 +45,7 @@ const OrderPage: React.FC = () => {
                 dispatch(updateQuantity({ id: item.id, quantity: Number(e.target.value) }))
               }
             />
-            <RemoveButton>X</RemoveButton>
+            <RemoveButton onClick={() => dispatch(removeFromCart(item.id))}>X</RemoveButton>
           </Controls>
         </OrderCard>
       ))}

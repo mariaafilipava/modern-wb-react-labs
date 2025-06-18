@@ -95,6 +95,15 @@ export const RemoveButton = styled.button`
   line-height: 27px;
   border: none;
   cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    background: #2da5ab;
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
 `;
 
 export const OrderForm = styled.div`

@@ -76,6 +76,10 @@ const menuSlice = createSlice({
         state.cartCount = state.cart.reduce((sum, i) => sum + i.quantity, 0);
       }
     },
+    removeFromCart(state, action: PayloadAction<string>) {
+      state.cart = state.cart.filter((i) => i.item.id !== action.payload);
+      state.cartCount = state.cart.reduce((sum, i) => sum + i.quantity, 0);
+    },
   },
 });
 
@@ -88,6 +92,7 @@ export const {
   addToCartItem,
   setCart,
   updateQuantity,
+  removeFromCart,
 } = menuSlice.actions;
 
 export default menuSlice.reducer;
