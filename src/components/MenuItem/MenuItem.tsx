@@ -12,7 +12,7 @@ type Meal = {
 
 type MenuItemProps = {
   item: Meal;
-  onAddToCart: (amount: number) => void;
+  onAddToCart: (item: Meal, quantity: number) => void;
 };
 
 const MenuItem: React.FC<MenuItemProps> = ({ item, onAddToCart }) => {
@@ -25,14 +25,14 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, onAddToCart }) => {
 
   const handleAddToCart = () => {
     if (quantity > 0) {
-      onAddToCart(quantity);
+      onAddToCart(item, quantity);
     }
   };
 
   return (
     <div className="menu-card">
       <img
-        src={item.image || "https://via.placeholder.com/120"} 
+        src={item.image || "https://via.placeholder.com/120"}
         alt={item.name || "Meal image"}
         className="menu-image"
       />
@@ -40,7 +40,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, onAddToCart }) => {
         <div className="menu-header">
           <h3 className="menu-title">{item.name || "No name"}</h3>
           <span className="menu-price">
-            ${item.price ? item.price.toFixed(2) : "N/A"} 
+            ${item.price ? item.price.toFixed(2) : "N/A"}
           </span>
         </div>
         <p className="menu-description">
