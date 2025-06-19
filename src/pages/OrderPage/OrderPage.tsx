@@ -45,7 +45,7 @@ const OrderPage: React.FC = () => {
                 dispatch(updateQuantity({ id: item.id, quantity: Number(e.target.value) }))
               }
             />
-            <RemoveButton onClick={() => dispatch(removeFromCart(item.id))}>X</RemoveButton>
+            <RemoveButton onClick={() => dispatch(removeFromCart(item.id))}>×</RemoveButton>
           </Controls>
         </OrderCard>
       ))}

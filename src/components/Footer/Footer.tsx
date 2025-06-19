@@ -52,9 +52,9 @@ const Footer: React.FC = () => {
           Built by <a href="#">Flowbase</a> · Powered by <a href="#">Webflow</a>
         </p>
         <div className="footer-social-icons">
-          <div className="icon-circle"><img src={instIcon} alt="Instagram" /></div>
-          <div className="icon-circle"><img src={twIcon} alt="Twitter" /></div>
-          <div className="icon-circle"><img src={ytIcon} alt="YouTube" /></div>
+          <div className="icon-circle"><img src={instIcon} alt="Instagram" className="footer-icon" /></div>
+          <div className="icon-circle"><img src={twIcon} alt="Twitter" className="footer-icon" /></div>
+          <div className="icon-circle"><img src={ytIcon} alt="YouTube" className="footer-icon" /></div>
         </div>
       </div>
     </footer>

@@ -1,5 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { FiShoppingCart } from "react-icons/fi";
+import { FiShoppingCart, FiSun, FiMoon } from "react-icons/fi";
+import { useContext } from "react";
+import { ThemeContext } from "../../theme/ThemeContext";
 import "./Header.css";
 import logo from "../../assets/Logo.png";
 
@@ -10,6 +12,7 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ cartCount }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const rawUsername = localStorage.getItem("username");
@@ -33,7 +36,6 @@ const Header: React.FC<HeaderProps> = ({ cartCount }) => {
           >
             Home
           </a>
-
           <a
             href="#"
             onClick={(e) => {
@@ -44,17 +46,13 @@ const Header: React.FC<HeaderProps> = ({ cartCount }) => {
           >
             Menu
           </a>
-
           <a
             href="#"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
+            onClick={(e) => e.preventDefault()}
             className={location.pathname === "/company" ? "active" : ""}
           >
             Company
           </a>
-
           <a
             href="#"
             onClick={(e) => {
@@ -67,6 +65,14 @@ const Header: React.FC<HeaderProps> = ({ cartCount }) => {
           </a>
         </nav>
 
+        <button className="icon-toggle" onClick={toggleTheme}>
+          {theme === "dark" ? (
+            <FiSun className="theme-icon" strokeWidth={1.5} />
+          ) : (
+            <FiMoon className="theme-icon" strokeWidth={1.5} />
+          )}
+        </button>
+
         <div
           className="cart"
           onClick={() => {
@@ -76,7 +82,6 @@ const Header: React.FC<HeaderProps> = ({ cartCount }) => {
               navigate("/login?redirect=order");
             }
           }}
-          style={{ cursor: "pointer" }}
         >
           <FiShoppingCart />
           <span className="cart-badge">{cartCount}</span>
