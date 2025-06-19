@@ -1,5 +1,16 @@
 import { useState, ChangeEvent } from "react";
-import "./MenuItem.css";
+import {
+  MenuCard,
+  MenuImage,
+  MenuContent,
+  MenuHeader,
+  MenuTitle,
+  MenuPrice,
+  MenuDescription,
+  MenuActions,
+  QuantityInput,
+  AddToCartButton,
+} from "./MenuItem.styled";
 
 type Meal = {
   id: string;
@@ -12,7 +23,7 @@ type Meal = {
 
 type MenuItemProps = {
   item: Meal;
-  onAddToCart: (amount: number) => void;
+  onAddToCart: (item: Meal, quantity: number) => void;
 };
 
 const MenuItem: React.FC<MenuItemProps> = ({ item, onAddToCart }) => {
@@ -25,43 +36,41 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, onAddToCart }) => {
 
   const handleAddToCart = () => {
     if (quantity > 0) {
-      onAddToCart(quantity);
+      onAddToCart(item, quantity);
     }
   };
 
   return (
-    <div className="menu-card">
-      <img
-        src={item.image || "https://via.placeholder.com/120"} 
+    <MenuCard>
+      <MenuImage
+        src={item.image || "https://via.placeholder.com/120"}
         alt={item.name || "Meal image"}
-        className="menu-image"
       />
-      <div className="menu-content">
-        <div className="menu-header">
-          <h3 className="menu-title">{item.name || "No name"}</h3>
-          <span className="menu-price">
-            ${item.price ? item.price.toFixed(2) : "N/A"} 
-          </span>
-        </div>
-        <p className="menu-description">
+      <MenuContent>
+        <MenuHeader>
+          <MenuTitle>{item.name || "No name"}</MenuTitle>
+          <MenuPrice>
+            ${item.price ? item.price.toFixed(2) : "N/A"}
+          </MenuPrice>
+        </MenuHeader>
+        <MenuDescription>
           {item.description && item.description.length > 90
             ? item.description.slice(0, 90) + "..."
             : item.description || "No description available."}
-        </p>
-        <div className="menu-actions">
-          <input
+        </MenuDescription>
+        <MenuActions>
+          <QuantityInput
             type="number"
             min="1"
             value={quantity}
             onChange={handleQuantityChange}
-            className="quantity-input"
           />
-          <button className="add-to-cart" onClick={handleAddToCart}>
+          <AddToCartButton onClick={handleAddToCart}>
             Add to cart
-          </button>
-        </div>
-      </div>
-    </div>
+          </AddToCartButton>
+        </MenuActions>
+      </MenuContent>
+    </MenuCard>
   );
 };
 

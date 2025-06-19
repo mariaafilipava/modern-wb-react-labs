@@ -1,25 +1,26 @@
-import { FiShoppingCart } from "react-icons/fi";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store/store";
-import { setActivePage } from "../../store/pageSlice";
-import logo from "../../assets/Logo.png";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FiShoppingCart, FiSun, FiMoon } from "react-icons/fi";
+import { useContext } from "react";
+import { ThemeContext } from "../../theme/ThemeContext";
 import "./Header.css";
+import logo from "../../assets/Logo.png";
 
 type HeaderProps = {
   cartCount: number;
 };
 
 const Header: React.FC<HeaderProps> = ({ cartCount }) => {
-  const dispatch = useDispatch();
-  const activePage = useSelector((state: RootState) => state.page.activePage);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
-  const handleClick = (page: "home" | "menu" | "login") => {
-    dispatch(setActivePage(page));
-  };
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const rawUsername = localStorage.getItem("username");
+  const showUsername = isLoggedIn && rawUsername;
 
   return (
     <header className="header">
-      <div className="logo">
+      <div className="logo" onClick={() => navigate("/")}>
         <img src={logo} alt="Logo" />
       </div>
 
@@ -29,9 +30,9 @@ const Header: React.FC<HeaderProps> = ({ cartCount }) => {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              handleClick("home");
+              navigate("/");
             }}
-            className={activePage === "home" ? "active" : ""}
+            className={location.pathname === "/" ? "active" : ""}
           >
             Home
           </a>
@@ -39,26 +40,49 @@ const Header: React.FC<HeaderProps> = ({ cartCount }) => {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              handleClick("menu");
+              navigate("/menu");
             }}
-            className={activePage === "menu" ? "active" : ""}
+            className={location.pathname === "/menu" ? "active" : ""}
           >
             Menu
           </a>
-          <a href="#">Company</a>
+          <a
+            href="#"
+            onClick={(e) => e.preventDefault()}
+            className={location.pathname === "/company" ? "active" : ""}
+          >
+            Company
+          </a>
           <a
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              handleClick("login");
+              navigate("/login");
             }}
-            className={activePage === "login" ? "active" : ""}
+            className={location.pathname === "/login" ? "active" : ""}
           >
-            Login
+            {showUsername ? rawUsername : "Login"}
           </a>
         </nav>
 
-        <div className="cart">
+        <button className="icon-toggle" onClick={toggleTheme}>
+          {theme === "dark" ? (
+            <FiSun className="theme-icon" strokeWidth={1.5} />
+          ) : (
+            <FiMoon className="theme-icon" strokeWidth={1.5} />
+          )}
+        </button>
+
+        <div
+          className="cart"
+          onClick={() => {
+            if (isLoggedIn) {
+              navigate("/order");
+            } else {
+              navigate("/login?redirect=order");
+            }
+          }}
+        >
           <FiShoppingCart />
           <span className="cart-badge">{cartCount}</span>
         </div>

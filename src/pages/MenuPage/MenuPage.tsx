@@ -6,16 +6,28 @@ import {
   setOrders,
   incrementVisibleCount,
   setSelectedCategory,
-  addToCart,
+  addToCartItem,
 } from "../../store/menuSlice";
 
 import MenuItem from "../../components/MenuItem/MenuItem";
-import "../../index.css";
-import "./MenuPage.css";
+import {
+  PageWrapper,
+  HeaderWrapper,
+  HeaderInner,
+  Title,
+  Description,
+  TooltipWrapper,
+  TooltipText,
+  FilterButtons,
+  FilterButton,
+  Grid,
+  SeeMoreWrapper,
+  SeeMoreButton,
+} from "./MenuPage.styled";
 
 function MenuPage(): React.ReactElement {
   const dispatch = useDispatch();
-  const { items, visibleCount, selectedCategory, cartCount } = useSelector(
+  const { items, visibleCount, selectedCategory } = useSelector(
     (state: RootState) => state.menu
   );
 
@@ -43,12 +55,14 @@ function MenuPage(): React.ReactElement {
     dispatch(incrementVisibleCount());
   };
 
-  const handleAddToCart = (amount: number = 1) => {
-    dispatch(addToCart(amount));
-  };
-
   const handleFilter = (category: string) => {
     dispatch(setSelectedCategory(category));
+  };
+
+  const handleAddToCart = (item: any, quantity: number) => {
+    for (let i = 0; i < quantity; i++) {
+      dispatch(addToCartItem(item));
+    }
   };
 
   const filteredItems =
@@ -57,47 +71,45 @@ function MenuPage(): React.ReactElement {
       : items.filter((item) => item.category === selectedCategory);
 
   return (
-    <main className="menu-page">
-      <div className="menu-header">
-        <div className="menu-header-inner">
-          <h1>Browse our menu</h1>
-          <p>
+    <PageWrapper>
+      <HeaderWrapper>
+        <HeaderInner>
+          <Title>Browse our menu</Title>
+          <Description>
             Use our menu to place an order online, or{" "}
-            <span className="tooltip-trigger">
+            <TooltipWrapper>
               phone
-              <span className="tooltip">+1 (234) 567-890</span>
-            </span>{" "}
+              <TooltipText>+1 (234) 567-890</TooltipText>
+            </TooltipWrapper>{" "}
             our store to place a pickup order. Fast and fresh food.
-          </p>
-        </div>
-      </div>
+          </Description>
+        </HeaderInner>
+      </HeaderWrapper>
 
-      <div className="filter-buttons">
+      <FilterButtons>
         {["All", "Dessert", "Dinner", "Breakfast"].map((category) => (
-          <button
+          <FilterButton
             key={category}
             className={selectedCategory === category ? "active" : ""}
             onClick={() => handleFilter(category)}
           >
             {category}
-          </button>
+          </FilterButton>
         ))}
-      </div>
+      </FilterButtons>
 
-      <div className="menu-grid">
+      <Grid>
         {filteredItems.slice(0, visibleCount).map((item) => (
           <MenuItem key={item.id} item={item} onAddToCart={handleAddToCart} />
         ))}
-      </div>
+      </Grid>
 
       {visibleCount < filteredItems.length && (
-        <div className="see-more-container">
-          <button className="see-more" onClick={handleSeeMore}>
-            See more
-          </button>
-        </div>
+        <SeeMoreWrapper>
+          <SeeMoreButton onClick={handleSeeMore}>See more</SeeMoreButton>
+        </SeeMoreWrapper>
       )}
-    </main>
+    </PageWrapper>
   );
 }
 

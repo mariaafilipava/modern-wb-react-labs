@@ -1,6 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { setActivePage } from "../../store/pageSlice";
+import { useNavigate } from "react-router-dom";
 import useFetchLogger from "../../hooks/useFetch";
 import {
   Wrapper,
@@ -17,11 +16,11 @@ import homepageBanner from "../../assets/homepage-banner.png";
 import trustpilotLogo from "../../assets/trustpilot-star.png";
 
 const HomePage: React.FC = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   useFetchLogger("https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals");
 
   const handleOrderClick = () => {
-    dispatch(setActivePage("menu"));
+    navigate("/menu");
   };
 
   return (
