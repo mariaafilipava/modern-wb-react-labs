@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setActivePage } from "../../store/pageSlice";
-
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Wrapper,
   Title,
@@ -14,65 +12,53 @@ import {
   CancelButton,
 } from "./LoginPage.styled";
 
-type User = {
-  username: string;
-  password: string;
-};
-
 const LoginPage: React.FC = () => {
-  const dispatch = useDispatch();
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const redirectPath = new URLSearchParams(location.search).get("redirect") || "/";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const newUser: User = { username, password };
-    const existingUsers: User[] = JSON.parse(localStorage.getItem("users") || "[]");
-
-    existingUsers.push(newUser);
-    localStorage.setItem("users", JSON.stringify(existingUsers));
-
-    console.log("Logged in:", newUser);
-
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("username", username);
     setUsername("");
     setPassword("");
-
-    dispatch(setActivePage("home"));
-  };
-
-  const handleCancel = () => {
-    setUsername("");
-    setPassword("");
+    navigate(redirectPath);
+    window.location.reload();
   };
 
   return (
     <Wrapper>
-      <Title>Log in</Title>
+      <Title>Login</Title>
       <FormContainer onSubmit={handleSubmit}>
         <LabelRow>
-          <Label>User name</Label>
+          <Label htmlFor="username">Username</Label>
           <Input
+            id="username"
             type="text"
             value={username}
+            placeholder="Enter username"
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="UserName"
           />
         </LabelRow>
 
         <LabelRow>
-          <Label>Password</Label>
+          <Label htmlFor="password">Password</Label>
           <Input
+            id="password"
             type="password"
             value={password}
+            placeholder="Enter password"
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="********"
           />
         </LabelRow>
 
         <ButtonGroup>
-          <Button type="submit">Submit</Button>
-          <CancelButton type="button" onClick={handleCancel}>
+          <Button type="submit">Log In</Button>
+          <CancelButton type="button" onClick={() => navigate("/")}>
             Cancel
           </CancelButton>
         </ButtonGroup>

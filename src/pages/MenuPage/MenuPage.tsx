@@ -6,7 +6,7 @@ import {
   setOrders,
   incrementVisibleCount,
   setSelectedCategory,
-  addToCart,
+  addToCartItem,
 } from "../../store/menuSlice";
 
 import MenuItem from "../../components/MenuItem/MenuItem";
@@ -15,7 +15,7 @@ import "./MenuPage.css";
 
 function MenuPage(): React.ReactElement {
   const dispatch = useDispatch();
-  const { items, visibleCount, selectedCategory, cartCount } = useSelector(
+  const { items, visibleCount, selectedCategory } = useSelector(
     (state: RootState) => state.menu
   );
 
@@ -43,12 +43,14 @@ function MenuPage(): React.ReactElement {
     dispatch(incrementVisibleCount());
   };
 
-  const handleAddToCart = (amount: number = 1) => {
-    dispatch(addToCart(amount));
-  };
-
   const handleFilter = (category: string) => {
     dispatch(setSelectedCategory(category));
+  };
+
+  const handleAddToCart = (item: any, quantity: number) => {
+    for (let i = 0; i < quantity; i++) {
+      dispatch(addToCartItem(item));
+    }
   };
 
   const filteredItems =
