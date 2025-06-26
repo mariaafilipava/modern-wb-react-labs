@@ -15,10 +15,11 @@ import {
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
   const location = useLocation();
-  const redirectPath = new URLSearchParams(location.search).get("redirect") || "/";
+
+  const searchParams = new URLSearchParams(location.search);
+  const redirectPath = searchParams.get("redirect");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,8 +27,7 @@ const LoginPage: React.FC = () => {
     localStorage.setItem("username", username);
     setUsername("");
     setPassword("");
-    navigate(redirectPath);
-    window.location.reload();
+    navigate(redirectPath ? `/${redirectPath}` : "/");
   };
 
   return (

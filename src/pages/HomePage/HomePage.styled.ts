@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  background-color: white;
+  background-color: var(--bg);
+  transition: background-color 0.3s ease;
 `;
 
 export const Container = styled.div`
@@ -21,13 +22,13 @@ export const Title = styled.h1`
   font-size: 60px;
   line-height: 60px;
   font-weight: 400;
-  color: #08090a;
-  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  font-family: "Inter", sans-serif;
   letter-spacing: 1.8px;
   margin: 0;
 
   span {
-    color: #35b8be;
+    color: var(--primary);
   }
 `;
 
@@ -37,28 +38,29 @@ export const Subtitle = styled.p`
   font-weight: 400;
   line-height: 24.12px;
   letter-spacing: 0.36px;
-  color: #546285;
-  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  font-family: "Inter", sans-serif;
 `;
 
 export const OrderButton = styled.button`
-  background-color: #35b8be;
-  color: #ffffff;
+  background-color: var(--primary);
+  color: var(--button-text);
   font-size: 17px;
   line-height: 20px;
   padding: 16px 32px;
   margin-top: 53px;
   border: none;
   border-radius: 6px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 400;
   text-align: center;
-  cursor: not-allowed;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 `;
 
 export const Rating = styled.div`
   margin-top: 30px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 
   .trustpilot-block {
     display: flex;
@@ -71,17 +73,17 @@ export const Rating = styled.div`
     align-items: center;
     gap: 6px;
     font-weight: 600;
-    color: #08090a;
+    color: var(--text);
   }
 
   .trustpilot-score {
     margin-top: 10px;
     font-weight: 400;
-    color: #08090a;
+    color: var(--text);
   }
 
   .trustpilot-score span {
-    color: #35b8be;
+    color: var(--primary);
     font-weight: 400;
   }
 
@@ -102,3 +104,4 @@ export const ImageSection = styled.div`
     object-fit: cover;
   }
 `;
+
