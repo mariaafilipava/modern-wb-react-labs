@@ -104,4 +104,3 @@ export const ImageSection = styled.div`
     object-fit: cover;
   }
 `;
-

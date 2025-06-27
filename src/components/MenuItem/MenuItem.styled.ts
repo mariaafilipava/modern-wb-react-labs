@@ -101,4 +101,3 @@ export const AddToCartButton = styled.button`
     background-color: #2ca5aa;
   }
 `;
-
